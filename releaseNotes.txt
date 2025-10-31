@@ -1,3 +1,118 @@
+1.10.0
+------
+
+Require Groovy 2.5.0 or later.
+
+Require at least Java 8.
+
+Various small fixes.
+
+(There are no changes to the application code needing a minor release, this is really a bugfix
+release. However the changes to Groovy version and Java version indicate a minor version was in order.)
+
+
+1.9.11
+------
+
+Updated 2.2 series to 2.2.2.
+
+Drop support for Groovy 1.8.
+
+Add support for Groovy 2.3.
+
+Fix a problem with the Windows batch launch script. Thanks to Hubbitus.
+
+
+1.9.10
+------
+
+Updated to Groovy 1.8.9, 2.0.8, 2.1.9.
+
+This release triggered by the arrival of Groovy 2.2.0.
+
+
+1.9.9
+-----
+
+Updated to Groovy 1.8.8, 2.0.6 and 2.1.0.
+
+Various changes to cause less compilation warnings.
+
+This release triggered by the release of Groovy 2.1.0
+
+
+1.9.8
+-----
+
+Updated to Groovy 1.8.6 and 2.0.0.
+
+Abandoned support for Groovy 1.7.x series. Groovy 1.8 series brought a parameterized Closure class and
+supporting the two versions of Closure in the same code base is too much hassle.
+
+This release was tirggered by the release of Groovy 2.0.0.
+
+
+1.9.7
+-----
+
+No substantive changes to Gant, per se.  Groovy 1.7.10, 1.8.4 and 2.0.0-beta-1 are the ones built against.
+
+Various minor changes to the build framework and project files have been made.  Various launch scripts have
+been re-synchronized with those of Groovy.  Various changes made to allow for using Java 7 as well as Java
+6, but none in Gant itself only in the tests.
+
+This release actually triggered by the release of Groovy 2.0.0-beta-1 since it is a revolutionary change to
+the numbering of Groovy -- 1.9.x series has been dropped and replaced by the 2.0.x series, i.e. the changes
+have been deemed a major change.  Which is probably right.
+
+
+1.9.6
+-----
+
+No substantive changes to Gant, this release is made post release of Groovy 1.8.1 and 1.9.0-beta-1
+principally to get a version of Gant compiled against he Groovy 1.9 series into the Maven repository.
+
+GroovyDoc, JavaDoc, and source artefacts are now built and published.
+
+
+1.9.5
+-----
+
+GroovyShell.parse(InputStream, String) has been removed in Groovy 1.9.x.  This introduces and
+incompatibility with the 1.6.x API.  Drop Gant support for Groovy 1.6.9.
+
+Switch to using Groovy 1.8.0 (instead of 1.7.10) as the bundled version of Groovy for the stand-alone Gant
+distribution.
+
+
+1.9.4
+-----
+
+Add Groovy 1.8 to the Groovy series supported by Gant.
+
+Groovy 1.6.9 is now used for the 1.6 series build of Gant and 1.7.8 for the 1.7 series build.
+
+Deb files are now built as part of the release process.
+
+Remove the Maven Ant task jar from the repository and the distribution.
+
+
+1.9.3
+-----
+
+Updated the Groovy 1.7.x series to be 1.7.3.
+
+Minor fixes to the exit code and other processing for the Windows launch scripts to keep in line with Groovy
+ones.
+
+Corrected Windows batch file processing to avoid assumptions made in startGroovy.bat.
+
+This release is really being made because it transpires that the 1.9.2 release for the Groovy 1.7 series was
+compiled against Groovy 1.7.1 which had a breaking API change that was reverted for Groovy 1.7.2 and thus
+1.7.3.  The consequence is that the version 1.9.2 gant_groovy1.7 artefact is incompatible with Groovy 1.7.2
+and 1.7.3.
+
+
 1.9.2
 ------
 
@@ -158,7 +273,7 @@ to search for the file.
 
 Provide a new constructor to allow Gant to be used in a Groovy Ant Task script.  cf. GANT-50.
 
-Correct some of the cygpath option lists. (Thanks to Paulo Jerônimo for spotting and reporting the problem.) 
+Correct some of the cygpath option lists. (Thanks to Paulo Jerônimo for spotting and reporting the problem.)
 
 Extend processing of symblic links in the gant Posix scripts. (Thanks to Nicolas Lalevée for submitting
 GANT-57.)
@@ -172,7 +287,7 @@ GStrings no longer cause problem in depends call -- fixed GANT-55.  GANT-61 is a
 Serious refactoring of the constructor structure of Gant.  Thanks to Peter Ledbrook.  cf. GANT-48.  NB  This
 is a significant breaking change for any code that creates Gant objects.  The script is no longer loaded as
 part of construction but has been separated out using the loadScript method.  This allows for introduction
-of the loadScriptClass method.  
+of the loadScriptClass method.
 
 Alter the start up jar load to include only jars with names starting "ant" from the $ANT_HOME/lib directory.
 
@@ -192,7 +307,7 @@ reflected in the artefacts uploaded to the Maven repository.  It is not possible
 this requires using the same POM and the POM has to be different for each build.
 
 Partly addressed GANT-63 about losing information about exceptions being thrown.
- 
+
 Part fix for GANT-51.
 
 
@@ -297,7 +412,7 @@ Extended the Ivy tool to allow the path to the Ivy jar to be specified using the
 
 Ensured the AntFile and Include tests work on Windows as well as Ubuntu, Solaris, and Mac OS X.
 
-Modified the verbosity level stuff so as to set the verbosity understood by the Ant tasks that get called. 
+Modified the verbosity level stuff so as to set the verbosity understood by the Ant tasks that get called.
 
 
 1.1.1 ( r9027 )
@@ -367,7 +482,7 @@ target default assumes that the description string is just the name of the defau
 
 Rearranged the filestore to work better for command line working, Eclipse, and the Maven target set.
 
-Gant now compiles in Eclipse 3.2.2 with Groovy plugin 1.5.0.200712080221. 
+Gant now compiles in Eclipse 3.2.2 with Groovy plugin 1.5.0.200712080221.
 
 
 1.0.0 ( r8816 )

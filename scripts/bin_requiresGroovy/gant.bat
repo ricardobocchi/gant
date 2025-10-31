@@ -14,7 +14,7 @@
 @rem  implied. See the License for the specific language governing permissions and limitations under the
 @rem  License.
 @rem
-@rem  Author : Russel Winder <russel.winder@concertant.com>
+@rem  Author : Russel Winder <russel@winder.org.uk>
 
 @rem  Gant initiation script for Windows.
 
@@ -27,7 +27,7 @@ if "%DIRNAME%" == "" set DIRNAME=.\
 @rem If GANT_HOME is not set, deduce a path.
 
 if not "%GANT_HOME%" == "" goto endSetGantHome
-   set GANT_HOME=%DIRNAME%..
+   set GANT_HOME="%DIRNAME%.."
 :endSetGantHome
 
 @rem  If GROOVY_HOME is not set, deduce a path -- this is needed in order to discover the location of the
@@ -54,15 +54,15 @@ if not "%ANT_HOME%" == "" goto endSetAntHome
 
 set PROGNAME=gant.bat
 set GROOVY_SCRIPT_NAME=gant.bat
-set STARTER_CONF=%GANT_HOME%\conf\gant-starter.conf
+set STARTER_CONF="%GANT_HOME%\conf\gant-starter.conf"
 set JAVA_OPTS=%JAVA_OPTS% -Dgant.home="%GANT_HOME%" -Dant.home="%ANT_HOME%"
 
-%GANT_HOME%\bin\startGroovy.bat %DIRNAME% gant.Gant embeddable %*
+"%GANT_HOME%\bin\startGroovy.bat" "%DIRNAME%" gant.Gant %*
 
 @rem End local scope for the variables with windows NT shell
 if "%OS%" == "Windows_NT" endlocal
 
-exit /B %ERRORLEVEL%
+%COMSPEC% /C exit /B %ERRORLEVEL%
 
 :environmentVariableError
  echo.
