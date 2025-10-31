@@ -10,3 +10,4 @@ gant
 gant_groovy*
 packaging/AntDebTask/debs
 texput.log
+.idea
