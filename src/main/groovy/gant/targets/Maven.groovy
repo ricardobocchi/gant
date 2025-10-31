@@ -38,7 +38,7 @@ final class Maven {
                                   testCompilePath : '' , // Defaults to standard Maven 2 convention.  Set in constructor since it uses a GString dependent on a value in the map.
                                   testReportPath : '' , // Defaults to standard Maven 2 convention.  Set in constructor since it uses a GString dependent on a value in the map.
                                   metadataPath : '' , // Defaults to standard Maven 2 convention.  Set in constructor since it uses a GString dependent on a value in the map.
-                                  javaCompileProperties : [ source : '1.5' , target : '1.5' , debug : 'false' ] ,
+                                  javaCompileProperties : [ release : '17' ,  debug : 'false' ] ,
                                   groovyCompileProperties : [ : ] ,
                                   nestedJavacCompilerArgs : [ ] ,
                                   compileClasspath : [ ] ,

@@ -14,9 +14,11 @@
 
 package gant
 
+import groovy.cli.picocli.CliBuilder
+
 import java.lang.reflect.InvocationTargetException
 
-import org.apache.commons.cli.GnuParser
+import org.apache.commons.cli.DefaultParser
 
 import org.apache.tools.ant.BuildListener
 import org.apache.tools.ant.Project
@@ -125,9 +127,9 @@ final class Gant {
       return binding.classLoader.loadClass ( className ).newInstance ( )
     }
     catch ( Exception e ) {
-      def fileText = url.text
+      def fileText = url.text as String
       compileScript ( cacheDirectory , fileText , className )
-      return binding.groovyShell.parse ( fileText , buildClassName )
+      return (binding.groovyShell as GroovyShell).parse ( fileText , buildClassName )
     }
   }
   /**
@@ -186,11 +188,19 @@ final class Gant {
    *  @param cl the <code>ClassLoader</code> to use.
    */
   public Gant ( GantBinding b , ClassLoader cl ) {
-    binding = b ?: new GantBinding ( )
-    binding.classLoader = cl ?: getClass ( ).classLoader
-    binding.groovyShell = new GroovyShell ( (ClassLoader) binding.classLoader , binding )
-    final gantPackage = binding.classLoader.getPackage ( 'gant' )
-    binding.'gant.version' = gantPackage?.implementationVersion
+      binding = b ?: new GantBinding()
+      def loader = cl ?: getClass().classLoader
+
+      // Cria uma configuração de compilador explícita
+      def config = new CompilerConfiguration()
+      config.setClasspathList([]) // pode personalizar se necessário
+
+      // Cria o GroovyShell compatível com Groovy 4
+      binding.groovyShell = new GroovyShell(loader, binding, config)
+      binding.classLoader = loader
+
+      def gantPackage = loader.getDefinedPackage('gant') ?: loader.getPackage('gant')
+      binding.setVariable('gant.version', gantPackage?.implementationVersion)
   }
   /**
    *  Constructor intended for use in code to be called from the Groovy Ant Task.
@@ -218,8 +228,9 @@ final class Gant {
    */
   public Gant loadScript ( String text ) {
     if ( ! buildClassName ) { buildClassName = textInputClassName }
-    script = binding.groovyShell.parse ( text , buildClassName )
+    script = (binding.groovyShell as GroovyShell).parse ( text , buildClassName )
     binding.'gant.file' = '<text>'
+      println "script = ${text}"
     return this
   }
   /**
@@ -232,7 +243,7 @@ final class Gant {
    */
   public Gant loadScript ( InputStream scriptSource ) {
     if ( ! buildClassName ) { buildClassName = streamInputClassName }
-    script = binding.groovyShell.parse ( scriptSource , buildClassName )
+    script = (binding.groovyShell as GroovyShell).parse ( new InputStreamReader(scriptSource) , buildClassName )
     binding.'gant.file' = '<stream>'
     return this
   }
@@ -460,7 +471,7 @@ final class Gant {
     //  However, be explicit for comprehensibility.
     //
     //def cli = new CliBuilder ( usage : 'gant [option]* [target]*' , posix : false )
-    def cli = new CliBuilder ( usage : 'gant [option]* [target]*' , parser : new GnuParser ( ) )
+    def cli = new CliBuilder ( usage : 'gant [option]* [target]*')
     cli.c ( longOpt : 'usecache' , 'Whether to cache the generated class and perform modified checks on the file before re-compilation.' )
     cli.d ( longOpt : 'debug' , 'Print debug levels of information.' )
     cli.f ( longOpt : 'file' , args : 1 , argName : 'build-file' , 'Use the named build file instead of the default, build.gant.' )
@@ -571,7 +582,7 @@ final class Gant {
     binding.gantLib = gantLib
     if ( script == null ) { throw new RuntimeException ( "No script has been loaded!" ) }
     script.binding = binding
-    script.run ( )
+    (script as Script).run ( )
     return (Integer) invokeMethod ( function , targets )
   }
   /**

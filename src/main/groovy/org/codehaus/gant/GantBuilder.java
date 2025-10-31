@@ -19,7 +19,7 @@ import java.util.List ;
 import java.util.Map ;
 
 import groovy.lang.Closure ;
-import groovy.util.AntBuilder ;
+import groovy.ant.AntBuilder ;
 
 import org.apache.tools.ant.BuildListener ;
 import org.apache.tools.ant.BuildLogger ;

@@ -14,6 +14,7 @@
 
 package org.codehaus.gant.tests.bugs
 
+import groovy.ant.AntBuilder
 import org.codehaus.gant.tests.GantTestCase
 
 /**

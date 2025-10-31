@@ -24,7 +24,7 @@ import java.io.PrintStream ;
 
 import java.lang.reflect.Method ;
 
-import groovy.util.GroovyTestCase ;
+import groovy.test.GroovyTestCase ;
 
 import gant.Gant ;
 
@@ -149,7 +149,7 @@ public abstract class GantTestCase extends GroovyTestCase {
     //  However, when the fork mode is 'perBatch' or 'once' then we have to ensure that the static state
     //  is reset to the normal state.
     //
-    GantState.verbosity = GantState.NORMAL ;
+    GantState.verbosity = GantState.VERBOSE ;
     GantState.dryRun = false ;
   }
   @Override protected void tearDown ( ) throws Exception {

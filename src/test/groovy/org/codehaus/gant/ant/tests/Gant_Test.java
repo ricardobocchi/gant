@@ -211,7 +211,7 @@ public class Gant_Test extends TestCase {
       returnList.add ( errorStringBuilder.toString ( ) ) ;
       return returnList ;
     }
-    catch ( final IOException ignore ) { fail ( "Got an IOException from starting the process." ) ; }
+    catch ( final IOException ignore ) { fail ( "Got an IOException from starting the process. " + ignore.getMessage() ) ; }
     //  Keep the compiler happy, it doesn't realize that execution cannot get here -- i.e. that fail is a non-returning function.
     return null ;
   }

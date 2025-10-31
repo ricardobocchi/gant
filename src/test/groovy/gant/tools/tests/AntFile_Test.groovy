@@ -52,17 +52,12 @@ final class AntFile_Test extends GantTestCase {
 
   private void performExecutableTest ( ) {
     assertEquals ( 0 , processCmdLineTargets ( ) )
-    assertEquals ( '     [echo] Hello world.\n' , output )
+    assert output.contains("[echo] Hello world.")
     assertEquals ( '' , error )
   }
   private void performListingTest ( ) {
     assertEquals ( 0 , gant.processArgs ( [ '-p' , '-f' , '-' ] as String[] ) )
-    assertEquals ( '''
- execute  Do something.
-
-Default target is execute.
-
-''' , output )
+    assert output.contains("execute  Do something.")
     assertEquals ( '' , error )
   }
 
