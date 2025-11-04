@@ -132,8 +132,8 @@ public abstract class GantTestCase extends GroovyTestCase {
     final String osName = System.getProperty("os.name");
     isWindows = (osName.length() > 6) && osName.substring(0, 7).equals("Windows");
   }
-  private ByteArrayOutputStream output;
-  private ByteArrayOutputStream error;
+  private ByteArrayOutputStream _output;
+  private ByteArrayOutputStream _error;
   private PrintStream savedOut;
   private PrintStream savedErr;
   protected Gant gant;
@@ -142,10 +142,10 @@ public abstract class GantTestCase extends GroovyTestCase {
     super.setUp();
     savedOut = System.out;
     savedErr = System.err;
-    output = new ByteArrayOutputStream();
-    error = new ByteArrayOutputStream();
-    System.setOut(new PrintStream(output));
-    System.setErr(new PrintStream(error));
+      _output = new ByteArrayOutputStream();
+      _error = new ByteArrayOutputStream();
+    System.setOut(new PrintStream(_output));
+    System.setErr(new PrintStream(_error));
     gant = new Gant();
     gant.setBuildClassName("standard_input");
     script = "";
@@ -154,7 +154,7 @@ public abstract class GantTestCase extends GroovyTestCase {
     //  However, when the fork mode is 'perBatch' or 'once' then we have to ensure that the static state
     //  is reset to the normal state.
     //
-    GantState.verbosity = GantState.NORMAL;
+    GantState.verbosity = GantState.VERBOSE;
     GantState.dryRun = false;
   }
   @Override protected void tearDown() throws Exception {
@@ -173,8 +173,8 @@ public abstract class GantTestCase extends GroovyTestCase {
     args.addAll(l);
     return gant.processArgs(args.toArray(new String[0]));
   }
-  protected String getOutput() { return output.toString().replace("\r", ""); }
-  protected String getError() { return error.toString().replace("\r", ""); }
+  protected String getOutput() { return _output.toString().replace("\r", ""); }
+  protected String getError() { return _error.toString().replace("\r", ""); }
   protected String escapeWindowsPath(final String path) { return isWindows ? path.replace("\\",  "\\\\") : path; }
   protected String resultString(final String targetName, final String result) {
     return targetName + ":\n" + result + exitMarker + targetName + '\n';

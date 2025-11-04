@@ -199,7 +199,7 @@ final class Gant {
         binding.groovyShell = new GroovyShell(loader, binding, config)
         binding.classLoader = loader
 
-        def gantPackage = loader.getDefinedPackage('gant') ?: loader.getPackage('gant')
+        def gantPackage = loader.getDefinedPackage('gant')
         binding.setVariable('gant.version', gantPackage?.implementationVersion)
     }
     /**
@@ -583,7 +583,8 @@ final class Gant {
      * @return
      */
     public Integer executeTargets(String function = 'dispatch', List<String> targets = []) {
-        (Integer) invokeMethod(function, targets)
+        def modifiableTargets = [*targets]
+        (Integer) invokeMethod(function, modifiableTargets)
     }
 
     /**

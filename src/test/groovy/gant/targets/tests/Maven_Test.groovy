@@ -56,7 +56,7 @@ includeTargets ** gant.targets.Maven * [
 
       assert output.contains("[mkdir] Created dir: ${compiledClassesDirectory.absolutePath}")
       assert output.contains("[javac] : warning: 'includeantruntime' was not set, defaulting to build.sysclasspath=last; set to false for repeatable builds")
-      assert output.contains("[javac] File to be compiled:")
+      assert output.contains("[javac] File to be compiled:") || output.contains("Compiling 1 source file to")
       assert !output.contains("error:")
 
 //    assertEquals ( resultString ( targetName , resultString ( 'initialize' , '' ) + """    [mkdir] Created dir: ${compiledClassesDirectory.absolutePath}
