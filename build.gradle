@@ -30,9 +30,9 @@ repositories {
 
 
 dependencies {
-    implementation 'org.apache.groovy:groovy-all:5.0.2'
-    implementation 'commons-cli:commons-cli:1.10.0'
-    implementation 'org.apache.ant:ant:1.10.15'
+    implementation 'org.apache.groovy:groovy-all:5.0.6'
+    implementation 'commons-cli:commons-cli:1.11.0'
+    implementation 'org.apache.ant:ant:1.10.17'
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.apache.ivy:ivy:2.5.3'
 }
@@ -84,5 +84,11 @@ publishing {
             // For Android libraries, you might use:
             // from components.release // or components.debug, depending on your build variants
         }
+    }
+}
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
     }
 }
